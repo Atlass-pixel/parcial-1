@@ -175,10 +175,22 @@ public class CarController :MonoBehaviour
 		CurrentSpeed = RB.velocity.magnitude;
 
 		UpdateSteerAngleLogic ();
-		UpdateRpmAndTorqueLogic ();
+		UpdateRpmAndTorqueLogic();
+        // Si hay dirección pero no aceleración, aplica un torque leve para que el auto pueda girar
+        // 🚗 Si hay giro pero sin acelerar, aplicamos fuerza leve para que empiece a rotar
+        if (Mathf.Approximately(CurrentAcceleration, 0f) && Mathf.Abs(CurrentSteerAngle) > 1f)
+        {
+            float lowTorque = 20f; // ajustable
+            for (int i = FirstDriveWheel; i <= LastDriveWheel; i++)
+            {
+                Wheels[i].WheelCollider.motorTorque = lowTorque * Mathf.Sign(CurrentSteerAngle);
+            }
+        }
 
-		//Find max slip and update braking ground logic.
-		CurrentMaxSlip = Wheels[0].CurrentMaxSlip;
+
+
+        //Find max slip and update braking ground logic.
+        CurrentMaxSlip = Wheels[0].CurrentMaxSlip;
 		CurrentMaxSlipWheelIndex = 0;
 
         if (InHandBrake)
@@ -369,18 +381,27 @@ public class CarController :MonoBehaviour
 				CurrentBrake = MaxBrakeTorque;
 			}
 		}
-		else
-		{
+        else
+        {
             CurrentBrake = 0;
 
             for (int i = FirstDriveWheel; i <= LastDriveWheel; i++)
-			{
-				Wheels[i].WheelCollider.motorTorque = 0;
-			}
-		}
+            {
+                // Si el jugador está girando (CurrentSteerAngle ≠ 0), damos torque mínimo
+                if (Mathf.Abs(CurrentSteerAngle) > 1f)
+                {
+                    Wheels[i].WheelCollider.motorTorque = 15f * Mathf.Sign(CurrentSteerAngle); // torque leve, se puede ajustar
+                }
+                else
+                {
+                    Wheels[i].WheelCollider.motorTorque = 0;
+                }
+            }
+        }
 
-		//Automatic gearbox logic. 
-		if (AutomaticGearBox)
+
+        //Automatic gearbox logic. 
+        if (AutomaticGearBox)
 		{
 
 			bool forwardIsSlip = false;

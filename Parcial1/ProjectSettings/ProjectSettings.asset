@@ -8,7 +8,7 @@ PlayerSettings:
   AndroidProfiler: 1
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
-  defaultScreenOrientation: 4
+  defaultScreenOrientation: 2
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
@@ -848,7 +848,7 @@ PlayerSettings:
   cloudProjectId: 7e5bb72b-4998-4c28-8a52-4552fd5475a8
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Drift_Lite_2018.3
+  projectName: Parcial1
   organizationId: francocaporaloni05
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 1
