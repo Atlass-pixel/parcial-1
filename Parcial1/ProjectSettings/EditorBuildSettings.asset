@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/ACC_Lite/Scenes/Demo.unity
     guid: 9789e29865be3414080f478abfc4aa71
   - enabled: 1
-    path: Assets/CartoonTracksPack1/Track1/Demo Scenes/complete_track_demo.unity
+    path: Assets/Scenes/complete_track_demo.unity
     guid: 83760dd98fe89364daec0c8817772284
   m_configObjects: {}
